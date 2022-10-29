@@ -12,6 +12,8 @@ import javax.persistence.*;
 public class Medication {
 
     @Id
+    @SequenceGenerator(name = "MEDICATION_ID_GENERATOR", sequenceName = "MEDICATIONS_SEQ", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "MEDICATION_ID_GENERATOR")
     private Long id;
 
     @Column(name = "NAME")

@@ -1,6 +1,5 @@
 package com.drone.drones.common;
 
-import com.drone.drones.common.constant.ModelTypeEnum;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
@@ -20,7 +19,7 @@ public class DroneModel implements Serializable {
     @Size(max = 200, message = "{SERIAL_NUMBER_SIZE_TOO_LONG}")
     private String serialNumber;
 
-    private ModelTypeEnum model;
+    private String model;
 
     @Max(value=500, message = "WEIGHT_EXCEED_MAX_LENGTH")
     private double weight;

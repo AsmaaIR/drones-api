@@ -15,6 +15,8 @@ public class Drone {
     private static final long serialVersionUID = 1L;
 
     @Id
+    @SequenceGenerator(name = "DRONE_ID_GENERATOR", sequenceName = "DRONES_SEQ", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "DRONE_ID_GENERATOR")
     private Long id;
 
     @Column(name = "SERIAL_NUMBER")
