@@ -4,6 +4,8 @@ import com.drone.drones.common.constant.ModelTypeEnum;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.List;
 
@@ -15,10 +17,12 @@ public class DroneModel implements Serializable {
 
     private Long id;
 
+    @Size(max = 200, message = "{SERIAL_NUMBER_SIZE_TOO_LONG}")
     private String serialNumber;
 
     private ModelTypeEnum model;
 
+    @Max(value=500, message = "WEIGHT_EXCEED_MAX_LENGTH")
     private double weight;
 
     private double batteryCapacity;
