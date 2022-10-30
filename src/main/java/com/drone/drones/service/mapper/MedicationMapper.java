@@ -3,11 +3,11 @@ package com.drone.drones.service.mapper;
 import com.drone.drones.common.MedicationModel;
 import com.drone.drones.repository.entity.Medication;
 import org.mapstruct.Mapper;
-
-import java.util.List;
+import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface MedicationMapper {
 
-    List<MedicationModel> toModels(final List<Medication> medications);
+    @Mapping(target = "medications.droneData", ignore = true)
+    MedicationModel toModel(final Medication medications);
 }

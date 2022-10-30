@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -28,13 +29,15 @@ public class DroneServiceImpl implements DroneService {
     @Override
     public List<DroneModel> getDrones() {
         log.info("getDrones::find all drones");
-        return droneMapper.toModels(droneRepository.findAll());
+        List<Drone> drones = droneRepository.findAll();
+        return drones.stream().map(droneMapper::toModel).collect(Collectors.toList());
     }
 
     @Override
     public List<DroneModel> getAvailableDroneForLoading() {
         log.info("getAvailableDroneForLoading::checking available drones for loading");
-        return droneMapper.toModels(droneRepository.getAvailableDrones());
+        List<Drone> drones = droneRepository.getAvailableDrones();
+        return drones.stream().map(droneMapper::toModel).collect(Collectors.toList());
     }
 
     @Override
