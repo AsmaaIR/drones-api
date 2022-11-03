@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface MedicationRepository  extends JpaRepository<Medication, Long> {
 
-    @Query("SELECT medication FROM Medication medication WHERE medication.id = ?1")
+    @Query("SELECT medication FROM Medication medication WHERE droneData.id = ?1")
     List<Medication> findByDroneId(long id);
 }

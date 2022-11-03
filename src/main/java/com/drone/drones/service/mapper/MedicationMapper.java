@@ -5,9 +5,16 @@ import com.drone.drones.repository.entity.Medication;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface MedicationMapper {
 
-    @Mapping(target = "medications.droneData", ignore = true)
-    MedicationModel toModel(final Medication medications);
+    @Mapping(target = "droneData", source = "medication.droneData", ignore = true)
+    MedicationModel toModel(final Medication medication);
+
+    @Mapping(target = "droneData", source = "medicationModel.droneData", ignore = true)
+    Medication toEntity (final MedicationModel medicationModel);
+
+    List<Medication> toEntities (final List<MedicationModel> medicationModels);
 }

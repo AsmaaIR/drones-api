@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.xml.bind.ValidationException;
 import java.util.List;
 
 @RestController
@@ -23,7 +24,7 @@ public class DroneResource {
 	}
 
 	@PostMapping
-	void registerDrone(@RequestBody @Valid DroneModel droneModel){
+	void registerDrone(@RequestBody @Valid DroneModel droneModel) throws ValidationException {
 		droneService.registerDrone(droneModel);
 	}
 
@@ -33,7 +34,7 @@ public class DroneResource {
 	}
 
 	@GetMapping("{droneId}/battery-level")
-	double getBatteryLevelForDrone(@PathVariable("droneId")  long droneId){
+	Double getBatteryLevelForDrone(@PathVariable("droneId")  long droneId){
 		return droneService.getBatteryLevelForDrone(droneId);
 	}
 

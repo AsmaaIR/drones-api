@@ -2,6 +2,7 @@ package com.drone.drones.common;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
+import lombok.ToString;
 
 import javax.validation.constraints.Pattern;
 import java.io.Serializable;
@@ -23,4 +24,10 @@ public class MedicationModel implements Serializable {
     private String code;
 
     private String imageUrl;
+
+    @ToString.Exclude
+    private String image;
+
+    private DroneModel droneData;
+
 }

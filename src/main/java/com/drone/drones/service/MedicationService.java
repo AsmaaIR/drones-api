@@ -7,4 +7,5 @@ import java.util.List;
 public interface MedicationService {
 
     List<MedicationModel> getMedicationsByDroneId(long droneId);
+
 }

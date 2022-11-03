@@ -2,19 +2,27 @@ package com.drone.drones.common.constant;
 
 public enum ModelTypeEnum {
 
-	LIGHT_WEIGHT("Lightweight"),
-	Middle_WEIGHT("Middleweight"),
-	CRUISER_WEIGHT("Cruiserweight"),
-	HEAVY_WEIGHT("Heavyweight");
+    LIGHTWEIGHT("Lightweight"),
+    MIDDLEWEIGHT("Middleweight"),
+    CRUISERWEIGHT("Cruiserweight"),
+    HEAVYWEIGHT("Heavyweight");
 
-	private final String value;
+    private final String value;
 
-	ModelTypeEnum(String v) {
-		this.value = v;
-	}
+    ModelTypeEnum(String v) {
+        this.value = v;
+    }
 
-	public String value() {
-		return this.value;
-	}
+    public String value() {
+        return this.value;
+    }
+
+    public static ModelTypeEnum fromValue(String value) {
+        for (ModelTypeEnum c : ModelTypeEnum.values()) {
+            if (c.value.startsWith(value)) {
+                return c;
+            }
+        }
+        throw new IllegalArgumentException(value);
+    }
 }
-
