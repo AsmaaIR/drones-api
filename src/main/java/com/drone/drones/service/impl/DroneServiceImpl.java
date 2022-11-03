@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.xml.bind.ValidationException;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
@@ -24,6 +26,8 @@ import java.util.stream.Collectors;
 @Slf4j
 public class DroneServiceImpl implements DroneService {
     private static final double MINIMUM_BATTERY_CAPACITY_FOR_LOADING = 25;
+    private static final String FILE_EXTENSION = ".txt";
+    private static final String FILE_NAME = "logs/" + "log"+ FILE_EXTENSION;
     @Autowired
     private DroneRepository droneRepository;
     @Autowired
@@ -32,6 +36,8 @@ public class DroneServiceImpl implements DroneService {
     private MedicationMapper medicationMapper;
     @Autowired
     private StorageService storageService;
+    @Autowired
+    private StorageServiceImpl storageServiceImpl;
 
 
     @Override
@@ -97,5 +103,28 @@ public class DroneServiceImpl implements DroneService {
             log.error("Couldn't save image {}", directory, e);
         }
         return null;
+    }
+
+    public void checkDroneBatteryLevel() throws IOException {
+        List<DroneModel> drones = getDrones();
+        createLogDirectory();
+        StringBuilder stringBuilder = new StringBuilder();
+        File file = new File(FILE_NAME);
+        FileWriter fr = new FileWriter(file, true);
+        stringBuilder.append("###########").append(new Date()).append("###########").append("\n");
+        fr.write(stringBuilder.toString());
+        stringBuilder.setLength(0);
+        drones.forEach(droneModel -> stringBuilder
+                .append("The Battery Level for drone with id: ")
+                .append(droneModel.getId()).append(" and serial number: ")
+                .append(droneModel.getSerialNumber())
+                .append(" is: ").append(droneModel.getBatteryCapacity()).append("\n"));
+        fr.write(stringBuilder.toString());
+        fr.close();
+    }
+
+    public void createLogDirectory() {
+        String[] directory = {};
+        storageServiceImpl.createDirectory(directory, "logs/");
     }
 }

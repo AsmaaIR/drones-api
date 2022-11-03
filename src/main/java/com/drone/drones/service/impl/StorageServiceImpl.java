@@ -22,7 +22,7 @@ public class StorageServiceImpl implements StorageService {
     public String saveImage(String image, String... directory) throws IOException {
         log.debug("Save image to {}", (Object) directory);
         byte[] decodedBytes = decode(image);
-        StringBuilder imagesDirectory = createDirectory(directory);
+        StringBuilder imagesDirectory = createDirectory(directory, "images/");
         String relativePath = imagesDirectory + UUID.randomUUID().toString().replaceAll("-", "") +"." + getAttachmentType(image);;
         Path path = Paths.get(relativePath);
         log.info("Writing image to {}", path);
@@ -30,8 +30,8 @@ public class StorageServiceImpl implements StorageService {
         return relativePath;
     }
 
-    private StringBuilder createDirectory(String[] directory) {
-        StringBuilder attachmentDirectory = new StringBuilder("images/");
+    public StringBuilder createDirectory(String[] directory, String base) {
+        StringBuilder attachmentDirectory = new StringBuilder(base);
         for (String dir: directory) {
             attachmentDirectory.append(dir).append("/");
         }
